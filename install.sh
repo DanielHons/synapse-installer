@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+CONFIG_PATH="$PWD"
 source CONFIG
 apt update
 apt-get install build-essential virtualenv python3-dev libffi-dev \
@@ -36,10 +37,10 @@ certbot certonly --nginx -m ${EMAIL_ADDRESS}  --agree-tos -d $DOMAIN
 
 (crontab -l 2>/dev/null; echo "0 12 * * * /usr/bin/certbot renew --quiet") | crontab -
 
-cp nginx.conf /etc/nginx/conf.d/matrix.conf
+cp ${CONFIG_PATH}/nginx.conf /etc/nginx/conf.d/matrix.conf
 sed -i -e "s/matrix.example.com/${DOMAIN}/g" /etc/nginx/conf.d/matrix.conf
 
-cp homeserver.yaml ${VIRTUAL_ENV_DIR}/homeserver.yaml
+cp ${CONFIG_PATH}/homeserver.yaml ${VIRTUAL_ENV_DIR}/homeserver.yaml
 sed -i -e "s/matrix.example.com/${DOMAIN}/g" ${VIRTUAL_ENV_DIR}/homeserver.yaml
 
 systemctl restart nginx
