@@ -31,7 +31,6 @@ add-apt-repository ppa:certbot/certbot -y
 apt-get update
 apt-get install certbot python-certbot-nginx -y
 
-
 certbot certonly --nginx -m ${EMAIL_ADDRESS}  --agree-tos -d $DOMAIN
 
 (crontab -l 2>/dev/null; echo "0 12 * * * /usr/bin/certbot renew --quiet") | crontab -
