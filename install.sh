@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+source CONFIG
 apt update
 apt-get install build-essential virtualenv python3-dev libffi-dev \
   python-pip python-setuptools sqlite3 \
