@@ -1,0 +1,3 @@
+VIRTUAL_ENV_DIR=~/synapse
+DOMAIN=comm.danielhons.de
+EMAIL_ADDRESS=certs@danielhons.de
