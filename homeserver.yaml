@@ -870,7 +870,7 @@ media_store_path: "/root/synapse/media_store"
 
 # Enable registration for new users.
 #
-#enable_registration: false
+enable_registration: true
 
 # Optional account validity configuration. This allows for accounts to be denied
 # any request after a given period.

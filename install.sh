@@ -43,5 +43,10 @@ sed -i -e "s/matrix.example.com/${DOMAIN}/g" /etc/nginx/conf.d/matrix.conf
 cp ${CONFIG_PATH}/homeserver.yaml ${VIRTUAL_ENV_DIR}/homeserver.yaml
 sed -i -e "s/matrix.example.com/${DOMAIN}/g" ${VIRTUAL_ENV_DIR}/homeserver.yaml
 
+apt install matrix-synapse
+synctl start
+
+register_new_matrix_user -u ${SYNAPSE_USERNAME} -p ${SYNAPSE_USER_PASSWORD} -a -c homeserver.yaml http://localhost:8008
+
 systemctl restart nginx
 systemctl enable nginx
