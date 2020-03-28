@@ -69,4 +69,9 @@ cp ${CONFIG_PATH}/riot/riot-config.json /var/www/riot/config.json
 sed -i -e "s/matrix.example.com/${DOMAIN}/g" /var/www/riot/config.json
 sed -i -e "s/riot.example.com/${RIOT_DOMAIN}/g" /var/www/riot/config.json
 sed -i -e "s/jitsi.example.com/${JITSI_HOST}/g" /var/www/riot/config.json
+
+
+echo "Installing Coturn"
+install_coturn.sh
+echo "Restarting nginx"
 systemctl restart nginx
