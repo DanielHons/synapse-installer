@@ -53,7 +53,7 @@ register_new_matrix_user -u ${SYNAPSE_USERNAME} -p ${SYNAPSE_USER_PASSWORD} -a -
 systemctl enable nginx
 
 
-## Get riot
+echo "Installing Riot"
 cd ~
 wget https://github.com/vector-im/riot-web/releases/download/v1.5.14-rc.1/riot-v1.5.14-rc.1.tar.gz
 mkdir riot

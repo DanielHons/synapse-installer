@@ -1,18 +1,3 @@
-# Configuration file for Synapse.
-#
-# This is a YAML file: see [1] for a quick introduction. Note in particular
-# that *indentation is important*: all the elements of a list or dictionary
-# should have the same indentation.
-#
-# [1] https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html
-
-## Server ##
-
-# The domain name of the server, with optional explicit port.
-# This is used by remote servers to connect to this server,
-# e.g. matrix.org, localhost:8080, etc.
-# This is also the last part of your UserID.
-#
 server_name: "matrix.example.com"
 
 # When running as a daemon, the file to store the pid in
@@ -22,7 +7,7 @@ pid_file: /root/synapse/homeserver.pid
 # The path to the web client which will be served at /_matrix/client/
 # if 'webclient' is configured under the 'listeners' configuration.
 #
-#web_client_location: "/path/to/web/root"
+web_client_location: "/var/www/riot"
 
 # The public-facing base URL that clients use to access this HS
 # (not including _matrix/...). This is the same URL a user would
@@ -66,7 +51,7 @@ pid_file: /root/synapse/homeserver.pid
 # If set to 'true', allows any other homeserver to fetch the server's public
 # rooms directory via federation. Defaults to 'false'.
 #
-#allow_public_rooms_over_federation: true
+allow_public_rooms_over_federation: true
 
 # The default room version for newly created rooms.
 #
@@ -76,7 +61,7 @@ pid_file: /root/synapse/homeserver.pid
 # For example, for room version 1, default_room_version should be set
 # to "1".
 #
-#default_room_version: "5"
+default_room_version: "5"
 
 # The GC threshold parameters to pass to `gc.set_threshold`, if defined
 #
