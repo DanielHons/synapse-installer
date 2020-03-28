@@ -72,6 +72,6 @@ sed -i -e "s/jitsi.example.com/${JITSI_HOST}/g" /var/www/riot/config.json
 
 
 echo "Installing Coturn"
-install_coturn.sh
+${CONFIG_PATH}/install_coturn.sh
 echo "Restarting nginx"
 systemctl restart nginx
