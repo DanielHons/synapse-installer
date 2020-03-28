@@ -1,5 +1,6 @@
 VIRTUAL_ENV_DIR=~/synapse
-DOMAIN=comm.danielhons.de
+DOMAIN=matrix.example.com
+RIOT_DOMAIN=riot.example.com
 EMAIL_ADDRESS=certs@danielhons.de
 SYNAPSE_USERNAME=root
 SYNAPSE_PASSWORD=someVeryRandom&SecurePassword

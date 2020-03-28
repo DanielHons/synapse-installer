@@ -33,20 +33,36 @@ add-apt-repository ppa:certbot/certbot -y
 apt-get update
 apt-get install certbot python-certbot-nginx -y
 
-certbot certonly --nginx -m ${EMAIL_ADDRESS}  --agree-tos -d $DOMAIN
+certbot certonly --nginx -m ${EMAIL_ADDRESS}  --agree-tos -d $DOMAIN -d $RIOT_DOMAIN
 
 (crontab -l 2>/dev/null; echo "0 12 * * * /usr/bin/certbot renew --quiet") | crontab -
 
 cp ${CONFIG_PATH}/nginx.conf /etc/nginx/conf.d/matrix.conf
 sed -i -e "s/matrix.example.com/${DOMAIN}/g" /etc/nginx/conf.d/matrix.conf
+sed -i -e "s/riot.example.com/${RIOT_DOMAIN}/g" /etc/nginx/conf.d/matrix.conf
 
 cp ${CONFIG_PATH}/homeserver.yaml ${VIRTUAL_ENV_DIR}/homeserver.yaml
 sed -i -e "s/matrix.example.com/${DOMAIN}/g" ${VIRTUAL_ENV_DIR}/homeserver.yaml
+sed -i -e "s/riot.example.com/${RIOT_DOMAIN}/g" ${VIRTUAL_ENV_DIR}/homeserver.yaml
 
-apt install matrix-synapse
+apt install matrix-synapse -y
 synctl start
 
 register_new_matrix_user -u ${SYNAPSE_USERNAME} -p ${SYNAPSE_USER_PASSWORD} -a -c homeserver.yaml http://localhost:8008
 
 systemctl restart nginx
 systemctl enable nginx
+
+
+## Get riot
+cd ~
+wget https://github.com/vector-im/riot-web/releases/download/v1.5.14-rc.1/riot-v1.5.14-rc.1.tar.gz
+cd mkdir riot
+tar -xzf riot-v1.5.14-rc.1.tar.gz -C riot
+rm riot-v1.5.14-rc.1.tar.gz
+cd riot
+mv riot-v1.5.14-rc.1/ /var/www/riot
+
+cp ${CONFIG_PATH}/riot-config.json /var/www/riot/config.json
+sed -i -e "s/matrix.example.com/${DOMAIN}/g" /var/www/riot/config.json
+sed -i -e "s/riot.example.com/${RIOT_DOMAIN}/g" /var/www/riot/config.json
