@@ -4,3 +4,4 @@ RIOT_DOMAIN=riot.example.com
 EMAIL_ADDRESS=certs@danielhons.de
 SYNAPSE_USERNAME=root
 SYNAPSE_PASSWORD=someVeryRandom&SecurePassword
+JITSI_HOST=jitsi.riot.im
