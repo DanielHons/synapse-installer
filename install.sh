@@ -24,10 +24,8 @@ python -m synapse.app.homeserver \
   --generate-config \
   --report-stats=yes
 
-# Remove bind to ::1
-sed -i -e "s/'::1',//g" homeserver.yaml
 
-apt-get update
+
 apt-get install software-properties-common -y
 
 ed ${CONFIG_PATH}
@@ -44,6 +42,8 @@ sed -i -e "s/__macaroon__secret___/${macaroonSecret}/g" ${VIRTUAL_ENV_DIR}/homes
 
 registrationSharedSecret=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 64 | head -n 1)
 sed -i -e "s/__registration_shared_secret__/${registrationSharedSecret}/g" ${VIRTUAL_ENV_DIR}/homeserver.yaml
+
+./install_postgres.sh
 
 echo "Starting homeserver"
 source ${VIRTUAL_ENV_DIR}/env/bin/activate

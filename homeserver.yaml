@@ -545,23 +545,6 @@ acme:
 #
 #tls_fingerprints: [{"sha256": "<base64_encoded_sha256_fingerprint>"}]
 
-
-
-## Database ##
-
-database:
-  # The database engine name
-  name: "sqlite3"
-  # Arguments to pass to the engine
-  args:
-    # Path to the database
-    database: "/root/synapse/homeserver.db"
-
-# Number of events to cache in memory.
-#
-#event_cache_size: 10K
-
-
 ## Logging ##
 
 # A yaml python logging config file as described by

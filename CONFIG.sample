@@ -3,5 +3,5 @@ DOMAIN=matrix.example.com
 RIOT_DOMAIN=riot.example.com
 EMAIL_ADDRESS=certs@example.com
 SYNAPSE_USERNAME=root
-SYNAPSE_PASSWORD=someVeryRandom&SecurePassword
+SYNAPSE_USER_PASSWORD=someVeryRandom&SecurePassword
 JITSI_HOST=jitsi.riot.im
