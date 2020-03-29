@@ -680,7 +680,7 @@ media_store_path: "/root/synapse/media_store"
 
 # The largest allowed upload size in bytes
 #
-#max_upload_size: 10M
+max_upload_size: 10M
 
 # Maximum number of pixels that will be thumbnailed
 #
@@ -1545,7 +1545,7 @@ email:
 
 # Uncomment to allow non-server-admin users to create groups on this server
 #
-#enable_group_creation: true
+enable_group_creation: true
 
 # If enabled, non server admins can only create groups with local parts
 # starting with this prefix
