@@ -39,7 +39,7 @@ formSecret=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 64 | head -n 1)
 sed -i -e "s/__form__secret__/${formSecret}/g" ${VIRTUAL_ENV_DIR}/homeserver.yaml
 
 macaroonSecret=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 64 | head -n 1)
-sed -i -e "s/__macaroon__secret___/${macaroonSecret}/g" ${VIRTUAL_ENV_DIR}/homeserver.yaml
+sed -i -e "s/__macaroon__secret__/${macaroonSecret}/g" ${VIRTUAL_ENV_DIR}/homeserver.yaml
 
 registrationSharedSecret=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 64 | head -n 1)
 sed -i -e "s/__registration_shared_secret__/${registrationSharedSecret}/g" ${VIRTUAL_ENV_DIR}/homeserver.yaml
