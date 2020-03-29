@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 CONFIG_PATH="$PWD"
 source CONFIG
 apt update
@@ -43,7 +44,7 @@ sed -i -e "s/__macaroon__secret___/${macaroonSecret}/g" ${VIRTUAL_ENV_DIR}/homes
 registrationSharedSecret=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 64 | head -n 1)
 sed -i -e "s/__registration_shared_secret__/${registrationSharedSecret}/g" ${VIRTUAL_ENV_DIR}/homeserver.yaml
 
-./install_postgres.sh
+source ./install_postgres.sh
 
 echo "Starting homeserver"
 source ${VIRTUAL_ENV_DIR}/env/bin/activate
@@ -93,6 +94,11 @@ sed -i -e "s/jitsi.example.com/${JITSI_HOST}/g" /var/www/riot/config.json
 
 
 echo "Install Coturn"
-${CONFIG_PATH}/install_coturn.sh
+source ${CONFIG_PATH}/install_coturn.sh
 echo "Restarting nginx"
 systemctl restart nginx
+
+echo "Restarting matrix"
+source CONFIG
+source ${VIRTUAL_ENV_DIR}/env/bin/activate
+synctl restart

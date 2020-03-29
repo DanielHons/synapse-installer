@@ -40,4 +40,3 @@ turn_user_lifetime: 1h
 turn_allow_guests: true
 """ >> ${VIRTUAL_ENV_DIR}/homeserver.yaml
 
-sudo systemctl restart matrix-synapse
