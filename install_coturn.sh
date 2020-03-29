@@ -15,7 +15,7 @@ echo """
 
 # The public URIs of the TURN server to give to clients
 #
-turn_uris: [“turn:${DOMAIN}:5349?transport=udp”]
+turn_uris: [“turn:${DOMAIN}:5349”]
 
 # The shared secret used to compute passwords for the TURN server
 #

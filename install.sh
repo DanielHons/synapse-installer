@@ -29,6 +29,28 @@ sed -i -e "s/'::1',//g" homeserver.yaml
 
 apt-get update
 apt-get install software-properties-common -y
+
+
+echo "Configuring homeserver"
+cp ${CONFIG_PATH}/homeserver.yaml ${VIRTUAL_ENV_DIR}/homeserver.yaml
+sed -i -e "s/matrix.example.com/${DOMAIN}/g" ${VIRTUAL_ENV_DIR}/homeserver.yaml
+sed -i -e "s/riot.example.com/${RIOT_DOMAIN}/g" ${VIRTUAL_ENV_DIR}/homeserver.yaml
+
+formSecret=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 64 | head -n 1)
+sed -i -e "s/__form__secret__/${formSecret}/g" ${VIRTUAL_ENV_DIR}/homeserver.yaml
+
+macaroonSecret=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 64 | head -n 1)
+sed -i -e "s/__macaroon__secret___/${macaroonSecret}/g" ${VIRTUAL_ENV_DIR}/homeserver.yaml
+
+registrationSharedSecret=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 64 | head -n 1)
+sed -i -e "s/__registration_shared_secret__/${registrationSharedSecret}/g" ${VIRTUAL_ENV_DIR}/homeserver.yaml
+
+echo "Starting homeserver"
+source ${VIRTUAL_ENV_DIR}/env/bin/activate
+synctl start
+
+
+echo "Initialize TLS"
 add-apt-repository ppa:certbot/certbot -y
 apt-get update
 apt-get install certbot python-certbot-nginx -y
@@ -41,19 +63,18 @@ cp ${CONFIG_PATH}/nginx/nginx-synapse.conf /etc/nginx/conf.d/matrix.conf
 sed -i -e "s/matrix.example.com/${DOMAIN}/g" /etc/nginx/conf.d/matrix.conf
 sed -i -e "s/riot.example.com/${RIOT_DOMAIN}/g" /etc/nginx/conf.d/matrix.conf
 
-cp ${CONFIG_PATH}/homeserver.yaml ${VIRTUAL_ENV_DIR}/homeserver.yaml
-sed -i -e "s/matrix.example.com/${DOMAIN}/g" ${VIRTUAL_ENV_DIR}/homeserver.yaml
-sed -i -e "s/riot.example.com/${RIOT_DOMAIN}/g" ${VIRTUAL_ENV_DIR}/homeserver.yaml
-
-source ${VIRTUAL_ENV_DIR}/env/bin/activate
-synctl start
-
-register_new_matrix_user -u ${SYNAPSE_USERNAME} -p ${SYNAPSE_USER_PASSWORD} -a -c homeserver.yaml http://localhost:8008
-
+echo "Start web server"
 systemctl enable nginx
 
+echo "Create initial user"
+source CONFIG
+source ${VIRTUAL_ENV_DIR}/env/bin/activate
+register_new_matrix_user -u ${SYNAPSE_USERNAME} -p ${SYNAPSE_USER_PASSWORD} -a -c homeserver.yaml http://localhost:8008
 
-echo "Installing Riot"
+
+
+
+echo "Install Riot"
 cd ~
 wget https://github.com/vector-im/riot-web/releases/download/v1.5.14-rc.1/riot-v1.5.14-rc.1.tar.gz
 mkdir riot
@@ -71,7 +92,7 @@ sed -i -e "s/riot.example.com/${RIOT_DOMAIN}/g" /var/www/riot/config.json
 sed -i -e "s/jitsi.example.com/${JITSI_HOST}/g" /var/www/riot/config.json
 
 
-echo "Installing Coturn"
+echo "Install Coturn"
 ${CONFIG_PATH}/install_coturn.sh
 echo "Restarting nginx"
 systemctl restart nginx
