@@ -15,7 +15,7 @@ web_client_location: "/var/www/riot"
 # use synapse with a reverse proxy, this should be the URL to reach
 # synapse via the proxy.
 #
-#public_baseurl: https://example.com/
+public_baseurl: https://matrix.example.com/
 
 # Set the soft limit on the number of file descriptors synapse can use
 # Zero is used to indicate synapse should set the soft limit to the
@@ -544,23 +544,6 @@ acme:
 # or by checking matrix.org/federationtester/api/report?server_name=$host
 #
 #tls_fingerprints: [{"sha256": "<base64_encoded_sha256_fingerprint>"}]
-
-
-
-## Database ##
-
-database:
-  # The database engine name
-  name: "sqlite3"
-  # Arguments to pass to the engine
-  args:
-    # Path to the database
-    database: "/root/synapse/homeserver.db"
-
-# Number of events to cache in memory.
-#
-#event_cache_size: 10K
-
 
 ## Logging ##
 
@@ -1431,7 +1414,7 @@ email:
   # Note that the placeholder must be written '%(app)s', including the
   # trailing 's'.
   #
-  #notif_from: "Your Friendly %(app)s homeserver <noreply@example.com>"
+  #notif_from: "Your Friendly %(app)s homeserver <noreply@matrix.example.com>"
 
   # app_name defines the default value for '%(app)s' in notif_from. It
   # defaults to 'Matrix'.

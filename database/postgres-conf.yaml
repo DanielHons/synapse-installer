@@ -1,0 +1,15 @@
+## Database ##
+
+database:
+  name: psycopg2
+  args:
+    user: synapse_user
+    password: POSTGRES_PASSWORD
+    database: synapse
+    host: localhost
+    cp_min: 5
+    cp_max: 10
+
+# Number of events to cache in memory.
+#
+#event_cache_size: 10K
