@@ -28,7 +28,7 @@ python -m synapse.app.homeserver \
 
 apt-get install software-properties-common -y
 
-ed ${CONFIG_PATH}
+cd ${CONFIG_PATH}
 echo "Configuring homeserver"
 cp homeserver.yaml ${VIRTUAL_ENV_DIR}/homeserver.yaml
 sed -i -e "s/matrix.example.com/${DOMAIN}/g" ${VIRTUAL_ENV_DIR}/homeserver.yaml
