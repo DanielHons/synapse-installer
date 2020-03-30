@@ -202,7 +202,7 @@ listeners:
     bind_addresses: ['127.0.0.1']
 
     resources:
-      - names: [client, federation]
+      - names: [client, federation,webclient]
         compress: false
 
     # example additional_resources:

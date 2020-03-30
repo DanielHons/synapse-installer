@@ -13,9 +13,9 @@ mkdir -p ${VIRTUAL_ENV_DIR}
 virtualenv -p python3 ${VIRTUAL_ENV_DIR}/env
 source ${VIRTUAL_ENV_DIR}/env/bin/activate
 
-pip install --upgrade pip virtualenv six packaging appdirs
+pip install --upgrade pip virtualenv six packaging appdirs psycopg2-binary
 pip install --upgrade setuptools
-pip install -U matrix-synapse
+pip install -U matrix-synapse[postgres]
 
 
 cd ${VIRTUAL_ENV_DIR}
@@ -85,14 +85,16 @@ sed -i -e "s/riot.example.com/${RIOT_DOMAIN}/g" /var/www/riot/config.json
 sed -i -e "s/jitsi.example.com/${JITSI_HOST}/g" /var/www/riot/config.json
 
 echo "Install Coturn"
-source ${CONFIG_PATH}/install_coturn.sh
+cd $CONFIG_PATH
+source ./install_coturn.sh
 echo "Restarting nginx"
 systemctl restart nginx
 
 cd ${CONFIG_PATH}
 echo "Restarting matrix"
 source CONFIG
-source ${VIRTUAL_ENV_DIR}/env/bin/activate
+cd ${VIRTUAL_ENV_DIR}
+source env/bin/activate
 synctl restart
 echo "Create initial user"
 register_new_matrix_user -u ${SYNAPSE_USERNAME} -p ${SYNAPSE_USER_PASSWORD} -a -c homeserver.yaml http://localhost:8008
