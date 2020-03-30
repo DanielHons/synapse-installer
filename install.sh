@@ -48,6 +48,7 @@ source ./install_postgres.sh
 
 
 
+
 echo "Initialize TLS"
 apt-get install certbot python-certbot-nginx -y
 
@@ -56,6 +57,9 @@ certbot certonly --nginx -m ${EMAIL_ADDRESS}  --agree-tos -d $DOMAIN
 (crontab -l 2>/dev/null; echo "0 12 * * * /usr/bin/certbot renew --quiet") | crontab -
 
 cp nginx/nginx-synapse.conf /etc/nginx/conf.d/matrix.conf
+
+source CONFIG
+echo "Configuring reverse proxy for $DOMAIN"
 sed -i -e "s/matrix.example.com/${DOMAIN}/g" /etc/nginx/conf.d/matrix.conf
 sed -i -e "s/riot.example.com/${RIOT_DOMAIN}/g" /etc/nginx/conf.d/matrix.conf
 
