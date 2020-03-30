@@ -48,11 +48,12 @@ source ./install_postgres.sh
 
 
 
-source CONFIG
-source ${VIRTUAL_ENV_DIR}/env/bin/activate
+
 echo "Initialize TLS"
 apt-get install certbot python-certbot-nginx -y
 
+source CONFIG
+source ${VIRTUAL_ENV_DIR}/env/bin/activate
 certbot certonly --nginx -m ${EMAIL_ADDRESS}  --agree-tos -d $DOMAIN
 
 (crontab -l 2>/dev/null; echo "0 12 * * * /usr/bin/certbot renew --quiet") | crontab -
@@ -66,14 +67,6 @@ sed -i -e "s/riot.example.com/${RIOT_DOMAIN}/g" /etc/nginx/conf.d/matrix.conf
 
 echo "Start web server"
 systemctl enable nginx
-
-echo "Create initial user"
-source CONFIG
-source ${VIRTUAL_ENV_DIR}/env/bin/activate
-register_new_matrix_user -u ${SYNAPSE_USERNAME} -p ${SYNAPSE_USER_PASSWORD} -a -c homeserver.yaml http://localhost:8008
-
-
-
 
 echo "Install Riot"
 cd ~
@@ -102,3 +95,5 @@ echo "Restarting matrix"
 source CONFIG
 source ${VIRTUAL_ENV_DIR}/env/bin/activate
 synctl restart
+echo "Create initial user"
+register_new_matrix_user -u ${SYNAPSE_USERNAME} -p ${SYNAPSE_USER_PASSWORD} -a -c homeserver.yaml http://localhost:8008
