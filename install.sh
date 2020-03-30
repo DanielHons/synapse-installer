@@ -72,6 +72,7 @@ systemctl enable nginx
 echo "Install Riot"
 cd ~
 wget https://github.com/vector-im/riot-web/releases/download/v1.5.14-rc.1/riot-v1.5.14-rc.1.tar.gz
+mkdir -p /var/www/riot
 tar -xzf riot-v1.5.14-rc.1.tar.gz -C /var/www/riot/
 rm riot-v1.5.14-rc.1.tar.gz
 
