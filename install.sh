@@ -48,7 +48,8 @@ source ./install_postgres.sh
 
 
 
-
+source CONFIG
+source ${VIRTUAL_ENV_DIR}/env/bin/activate
 echo "Initialize TLS"
 apt-get install certbot python-certbot-nginx -y
 
