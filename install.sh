@@ -75,6 +75,8 @@ wget https://github.com/vector-im/riot-web/releases/download/v1.5.14-rc.1/riot-v
 mkdir -p /var/www/riot
 tar -xzf riot-v1.5.14-rc.1.tar.gz -C /var/www/riot/
 rm riot-v1.5.14-rc.1.tar.gz
+mv /var/www/riot/riot-v1.5.14-rc.1/* /var/www/riot/
+rm -r /var/www/riot/riot-v1.5.14-rc.1
 
 
 certbot certonly --nginx -m ${EMAIL_ADDRESS}  --agree-tos -d $RIOT_DOMAIN
