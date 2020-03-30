@@ -72,9 +72,9 @@ echo "Install Riot"
 cd ~
 wget https://github.com/vector-im/riot-web/releases/download/v1.5.14-rc.1/riot-v1.5.14-rc.1.tar.gz
 mkdir riot
-tar -xzf riot-v1.5.14-rc.1.tar.gz -C riot
+tar -xzf riot-v1.5.14-rc.1.tar.gz -C /var/www/riot/
 rm riot-v1.5.14-rc.1.tar.gz
-mv riot/riot-v1.5.14-rc.1/ /var/www/riot/
+
 
 certbot certonly --nginx -m ${EMAIL_ADDRESS}  --agree-tos -d $RIOT_DOMAIN
 cp ${CONFIG_PATH}/nginx/nginx-riot.conf /etc/nginx/conf.d/riot.conf
