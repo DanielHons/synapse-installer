@@ -49,8 +49,6 @@ source ./install_postgres.sh
 
 
 echo "Initialize TLS"
-add-apt-repository ppa:certbot/certbot -y
-apt-get update
 apt-get install certbot python-certbot-nginx -y
 
 certbot certonly --nginx -m ${EMAIL_ADDRESS}  --agree-tos -d $DOMAIN
