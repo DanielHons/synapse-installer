@@ -46,9 +46,6 @@ sed -i -e "s/__registration_shared_secret__/${registrationSharedSecret}/g" ${VIR
 
 source ./install_postgres.sh
 
-echo "Starting homeserver"
-source ${VIRTUAL_ENV_DIR}/env/bin/activate
-synctl start
 
 
 echo "Initialize TLS"
@@ -92,12 +89,12 @@ sed -i -e "s/matrix.example.com/${DOMAIN}/g" /var/www/riot/config.json
 sed -i -e "s/riot.example.com/${RIOT_DOMAIN}/g" /var/www/riot/config.json
 sed -i -e "s/jitsi.example.com/${JITSI_HOST}/g" /var/www/riot/config.json
 
-
 echo "Install Coturn"
 source ${CONFIG_PATH}/install_coturn.sh
 echo "Restarting nginx"
 systemctl restart nginx
 
+cd ${CONFIG_PATH}
 echo "Restarting matrix"
 source CONFIG
 source ${VIRTUAL_ENV_DIR}/env/bin/activate
