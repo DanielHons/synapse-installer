@@ -13,9 +13,10 @@ mkdir -p ${VIRTUAL_ENV_DIR}
 virtualenv -p python3 ${VIRTUAL_ENV_DIR}/env
 source ${VIRTUAL_ENV_DIR}/env/bin/activate
 
-pip install --upgrade pip virtualenv six packaging appdirs psycopg2-binary
+pip install --upgrade pip virtualenv six packaging appdirs
 pip install --upgrade setuptools
-pip install -U matrix-synapse[postgres]
+pip install -U matrix-synapse
+pip install psycopg2-binary
 
 
 cd ${VIRTUAL_ENV_DIR}
